@@ -1,0 +1,19 @@
+https://docs.google.com/document/d/1ebV2jhxWCZbw3sYcPhuapON2bZBn9qy3s9HyHU2eaOA/edit?pli=1
+
+postman - get
+localhost:3000/
+
+postman - post /body/raw/JSON 
+
+{
+        "email" : "teste@gmail.com",
+        "senha" : "123456"
+}
+
+{
+        "id_produtoesporte" : "id1",
+        "descricao" : "bola redonda vermelha com uma estrela",
+        "marca" : "ADIDAS",
+        "dataFabricacao" : "11-11-2007",
+        "quantidadeEstoque" : "4000"
+}
