@@ -18,14 +18,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/sportszone',
 
 //criando a model do seu projeto
 const usuarioSchema = new mongoose.Schema({
-    email : {type : String, required : true},
+    email : {type : String, Required : true},
     senha : {type : String}
 });
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 //criando a segunda model
 const produtoEsporteSchema = new mongoose.Schema({
-    id_produtoesporte : {type : String, required : true},
+    id_produtoesporte : {type : String, Required : true},
     descricao : {type : String},
     marca : {type : String},
     dataFabricacao : {type : Date},
@@ -37,6 +37,15 @@ const Produtoesporte = mongoose.model("Produtoesporte", produtoEsporteSchema);
 app.post("/cadastrousuario", async(req, res)=>{
     const email = req.body.email;
     const senha = req.body.senha;
+
+    //Ac Js
+    if(email == null || senha == null){
+        return res.status(400).json({error: "Preencha todos os dados.."})
+    }
+    const emailExistente = await Usuario.findOne({email:email})
+    if(emailExistente){
+        return res.status(400).json({error : "O e-mail cadastrado já existe!!"})
+    }
 
     //mandando para banco
     const usuario = new Usuario({
@@ -58,6 +67,11 @@ app.post("/cadastroprodutoesporte", async(req, res)=>{
     const marca = req.body.marca;
     const dataFabricacao = req.body.dataFabricacao;
     const quantidadeEstoque = req.body.quantidadeEstoque
+
+    //Ac Js
+    if(quantidadeEstoque <= 0 || quantidadeEstoque > 21){
+        return res.status(400).json({error: "Estoque so é posivel de 0 até 21.."})
+    }
 
     //mandando para banco
     const produtoesporte = new Produtoesporte({
